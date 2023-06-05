@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - WayPoints
+  - WayPointsDz
+  - WayPoint
+  - Remy
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class WalkingState : StateMachineBehaviour
 {
     float timer;
@@ -9,10 +10,12 @@ public class WalkingState : StateMachineBehaviour
     NavMeshAgent agent;
     Transform player;
     Animator animator;
+    GameObject Remy;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent = animator.GetComponent<NavMeshAgent>();
+        Remy = GameObject.FindGameObjectWithTag("Remy");
         timer = 0;
         GameObject go = GameObject.FindGameObjectWithTag("WayPoints");
         foreach (Transform g in go.transform)
@@ -31,29 +34,25 @@ public class WalkingState : StateMachineBehaviour
 
         if (Physics.Raycast(animator.transform.position, animator.transform.TransformDirection(Vector3.forward), out RaycastHit hit, 13f))
         {
-            Debug.Log("hit something");
+            //Debug.Log("hit something");
             agent.speed = 3f;
-            animator.transform.LookAt(player);
+            //animator.transform.LookAt(player);
             agent.SetDestination(player.position);
             animator.transform.LookAt(player);
-
-            // if (distanceToPlayer < 6f && distanceToPlayer > 3f)
-            // {
-            //     animator.SetBool("IsWalking", true);
-            // }
-            // else if (distanceToPlayer) > 6f
-            // {
-            //  animator.SetBool("IsWalking", false);
-            // }
            
             if (distanceToPlayer < 3f)
             {
                 animator.SetBool("Attack", true);
+                Remy.GetComponent<RemyScript>().TakeDamage(100f);
+            
+
             }
+          
+           
         }
         else
         {
-            Debug.Log("hit nothing");
+           // Debug.Log("hit nothing");
             agent.speed = 1.5f;
             
 

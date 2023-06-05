@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class RemyScript : MonoBehaviour
 {
     private Animator anim;
+    public float health = 100f;
+    public TextMeshProUGUI healthText;
 
     // Start is called before the first frame update
     void Start()
@@ -12,6 +16,23 @@ public class RemyScript : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        healthText.text = health.ToString();
+        if (health <= 0)
+        {
+            ReloadGame();
+         
+        }
+    }
+
+      // Method to reload the game
+    private void ReloadGame()
+    {
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     // Update is called once per frame
     void Update()
     {
