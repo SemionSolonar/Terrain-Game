@@ -16,7 +16,7 @@ public class RemyScript : MonoBehaviour
     private bool isShiftPressed = false;
     private bool isWPressed = false;
     private AudioSource walkingSound;
-
+    private int screenshotIndex = 0;
 
 
     // Start is called before the first frame update
@@ -77,6 +77,12 @@ public class RemyScript : MonoBehaviour
         if (isShiftPressed && !audioSource.isPlaying)
         {
             audioSource.Play();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            ScreenCapture.CaptureScreenshot("Screenshot" + screenshotIndex + ".png");
+            screenshotIndex++;
         }
     }
 
